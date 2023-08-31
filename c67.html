@@ -1,0 +1,859 @@
+<script type="text/javascript">
+function pars2(fb) {
+ var i,j,a4;
+ i="d"+fb.substr(0,2);
+ j="d"+fb.substr(2,2);
+ a4=id_to_field(i)+id_to_field(j);
+ rtv=pars(a4);
+ return rtv;
+//switched off - rebranched
+}
+function bfoo(i,j) {
+ var desl=document.getElementById("dsk1").innerHTML;
+ cr1(desl);
+ makemove(i,j);
+ moveto(i*64+j);
+ if (j<8 ) if (dsk[j]==10) dsk[j]=95;
+ if (j>55) if (dsk[j]==10) dsk[j]=95;
+ loa();
+}
+function foo(fb) {
+ var val1=0;
+ var nmr, sub0;
+ el=document.getElementById("div1");
+ el.innerHTML=fb;
+ var sub1=fb.substr(2,2);
+ if (sub1.length<2) sub1="0"+sub1;
+ sub0=sub1;
+ el=document.getElementById("div2");
+ nmr=Number(sub1);
+ if (turned==1) { nmr=63-nmr; sub1=nmr.toString(); }
+ if (sub1.length<2) sub1="0"+sub1;
+ if (atr[nmr]==0) if (tt2.length < 2) return;
+ if (tt2 != sub1) { tt2=tt2+sub1; el.innerHTML=tt2; }
+ if (tt2.length ==2) { el=document.getElementById("el"+sub0); el.setAttribute("class", "peni"); }
+ if (tt2.length >=4) { val1=pars2(tt2); tt2=""; remo(); ref_desk(); }
+ return val1;
+}
+function ref_desk() {
+ for (i=0;i<64;++i) {  
+  if (turned==0) { mezcla=pick(i);    adv(mezcla, i);    }
+  if (turned==1) { mezcla=pick(63-i); adv(mezcla, i);    }
+ }
+}
+function remo() {
+ var i,el;
+ for (i=0;i<64;++i) {
+  el = document.getElementById("rc"+i);
+  el.parentNode.removeChild(el);
+  el = document.getElementById("el"+i);
+  el.parentNode.removeChild(el); 
+ }
+}
+function adv(fig, i) {
+ var jjs, rc,el,tb,upos,j;
+ k=(i%8);l=Math.floor(i/8);
+ tb=document.getElementById("base1svg"); 
+ rc=document.createElementNS(svgNS, "rect");
+ rc.setAttribute("x", "0"); rc.setAttribute("y", "0"); 
+ rc.setAttribute("width", "40"); rc.setAttribute("height", "40");
+ rc.setAttribute("id", "rc"+i);
+ rc.setAttribute("onclick", "foo(this.id)");
+ j=(k+l)%2;
+ if (j==0) rc.setAttribute("class", "retw");
+ else rc.setAttribute("class", "retb");
+ tb.appendChild(rc);
+ el=document.createElementNS(svgNS, "path");
+ tb.appendChild(el);
+ el.setAttribute("d", fig);
+ strig="translate("+k*40+","+l*40+")";
+ el.setAttribute("transform", strig);
+ el.setAttribute("id", "el"+i);
+ el.setAttribute("onclick", "foo(this.id)");
+ rc.setAttribute("transform", strig);
+ var selco="penn";
+ if (turned==0) jjs=i;
+ if (turned==1) jjs=63-i;
+ if (atr[jjs]== 1) selco="penb";
+ if (atr[jjs]==-1) selco="penw";
+ el.setAttribute("class", selco);
+}
+function pick(i) {
+ if (dsk[i]== 95) return (d1x+c1x);
+ if (dsk[i]== 50) return (d2x);
+ if (dsk[i]== 31) return (d3x+d4x+c3x);
+ if (dsk[i]== 30) return (d7x+c5x);
+ if (dsk[i]==255) return (cax+d8x);
+ if (dsk[i]== 10) return (d3x+cbx+d5x);
+ return d9x;
+}
+</script>
+
+<style type="text/css">
+ td,div,span { font-family: monospace; font-size: small  }
+ input       { font-family: monospace; font-size: large; height: 64px; width: 80px;}
+.jel  {text-align:left; font-size: small; font-family: monospace}
+.rett { stroke-width:1;  stroke:#00ff00; fill:#FFFFFF; }
+.retb { stroke-width:1;  stroke:#000000; fill:#3FAF7F; }
+.retw { stroke-width:1;  stroke:#000000; fill:#AFFFFF; }
+.retu { stroke-width:1;  stroke:#000000; fill:#7F0000; }
+.penn { stroke-width:1;  stroke:#000000; fill:#7FFFFF; }
+.penb { stroke-width:1;  stroke:#000000; fill:#1F1F7F; }
+.penw { stroke-width:1;  stroke:#000000; fill:#7FFF7F; }
+.peni { stroke-width:1;  stroke:#000000; fill:#FF0000; }
+</style>
+<svg id="base1svg" width="360" height="360" viewBox = "0,0,320,320">
+ <defs>
+ <g id="inner2"><path d="M 30, 80 l 20,-30 l 20, 30 q -20 -30 -40 0"        class="penn"/></g>
+ <g id="penn1" ><path d="M 30, 30 A 40,70 0 0 1 50,80 A 40,70 0 0 0 70,30  Z" class="penn"/></g>
+ <g id="inner1"><rect x="0" y="0" width="40" height="40" class="rett"></g>
+ <g id="d1" ><path d="M30,30 l5,-15 l-9,10 l-1,-16 l-5,16 l-5,-16 l-1,16 l-9,-10 l5,15" class="penn"/></g>
+ <g id="circ1"><path d="M10,30 A10,3 0 0 0 30,30" class="penn" /></g>
+ <g id="circb"><path d="M10,30 v-5 A10,3 0 0 1 30,25 v5" class="penn" /></g>
+ <g id="circ2"><ellipse cx="20" cy="11" rx="2" ry="5" class="penn"/></g>
+ <g id="circ4"><ellipse cx="20" cy="24" rx="3" ry="4" class="penn"/></g>
+ <g id="circ3"><path d= "M17,28 a6,15, 0 0 1 3,-15 a6,15, 0 0 1 3,15" class="penn"/></g>
+ <g id="d2" ><path d="M10,33 h20 v-4 l-3,-3 v-8 l3,-3 v-4 h-4 v2 h-4 v-2 h-4 v2 h-4 v-2 h-4 v4 l3,3 v8 l-3,3 Z"  class="penn"/></g>
+ <g id="d3" ><path d="M10,33 q 10,-3,20,0 q -10,-10,-20,0 " class="penn"></g>
+ <g id="d4" ><path d="M12,17 q 8,1,16,0 q -8, 5,-16,0 " class="penn"></g>
+ <g id="d5" ><path d="M15,21 q 5,-3,10,0 q -5,-7,-10,0 " class="penn"></g>
+ <g id="d7" ><path d="M10,33 h20 a 15,35,0,0,0,-12,-22 l-8,10 a3,3 0 1 0 5,5 l 3,-2 v2 Z" class="penn"></g>
+ <g id="circ5"><path d="M16,17 a1,1 0 0 1 2,0"  class="penn"/></g>
+ <g id="d8" ><path d="M10,25 q -5,-23,10,-2 M30,25 q 5,-23,-10,-2 h1 v-16 h-2 v16 M16,14 h8 v-2 h-8 v2" class="penn"></g>
+ <g id="d9" ><path d="M10,25 q 10,-10,10,0 t 10,0 " class="penn"></g>
+ </defs>
+</svg>
+<html>
+<table id="t2"><tbody id="tbod2"/></table>
+<input type="button" value="Submit" onclick="pars(texi.value)" />
+<input type="text" size = "5" value="void" id="texi" />
+<input type="button" value="B/W" onclick="swp1()" /><span id="kdo1">B</span>
+<input type="button" value="level" onclick="slev1()" /><span id="lev1">4</span>
+<input type="button" value="Set"  onclick="set1()" /><span id="trsh1">-999</span>
+<input type="button" value="Cornhol" onclick="cornhol()" />
+<input type="button" value="Size" onclick="size1()" />
+<br><span>res1:</span><span id="res1">Reserved for results. </span>
+<br>
+<input type="button" value="solve" onclick="respo()" />
+<input type="button" value="do hint"  onclick="mbest()" />
+<input type="button" value="rever"  onclick="revd()" />
+<input type="button" value="clear" onclick="clear1()" />
+<input type="button" value="new" onclick="new1()" />
+<br>
+<input type="button" value="insert" onclick="insert1(ins1.value)" />
+<input type="text" size = "4" value="a7q" id="ins1" />
+<input type="button" value="back"  onclick="lback()" /><span>mvs:</span><span id="mc1">0</span>
+<input type="button" value="auto"  onclick="autoresp()" /><span id="auto1">1</span>
+<br><span>res2:</span><span id="res2"></span>
+<input type="text" class="jel" size="64" id="edtex" /><input type="button" value="Modify" onclick="modi(edtex.value)"/>
+<br><span>dsk0:</span><span id="dsk0">HNLQKLNHPPPPPPPP................................pppppppphnlqklnh</span>
+<br><span>dsk1:</span><span id="dsk1">HNLQKLNHPPPPPPPP................................pppppppphnlqklnh</span>
+<br><span>dsk2:</span><span id="dsk2">..H....HL.....PPQ...PP..............qlK............h.ppk....h...</span>
+<br><span>dsk3:</span><span id="dsk3">HNLQKLNHPPPPPPPP................................pppppppphnlqklnh</span>
+<br><span>dsk4:</span><span id="dsk4">......K.............................k......................q....</span>
+<br><span>dsk5:</span><span id="dsk5">....K.......................................................k...</span>
+<div id="gells">List of mvs</div>
+<table id ="diag3" border="1">
+<td id="ekw"><center>ply</td>
+<td id="kkk"><center>xxxx</td>
+<td id="diak"><center>.</td>
+<td>Hint:</td>
+<td id="wiak"><center>.</td>
+</table>
+cl:<span id="div1"></span>
+mv:<span id="div2"></span>
+<div id="base_div"></div>
+</html>
+
+
+<script type="text/javascript">
+ dsk = new Array(); atr = new Array();
+ dsk.push(50,30,31,95,255,31,30,50);dsk.push(10,10,10,10,10,10,10,10);
+ for (ii=0;ii<32;++ii) dsk.push(0);
+ dsk.push(10,10,10,10,10,10,10,10);dsk.push(50,30,31,95,255,31,30,50);
+ for (ii=0;ii<16;++ii) atr.push(1);
+ for (ii=0;ii<32;++ii) atr.push(0);
+ for (ii=0;ii<16;++ii) atr.push(-1);
+
+ var d1x="M30,30 l5,-15 l-9,10 l-1,-16 l-5,16 l-5,-16 l-1,16 l-9,-10 l5,15 ";
+ var c1x="M10,30 A10,3 0 0 0 30,30 ";
+ var d2x="M10,33 h20 v-4 l-3,-3 v-8 l3,-3 v-4 h-4 v2 h-4 v-2 h-4 v2 h-4 v-2 h-4 v4 l3,3 v8 l-3,3 Z "
+ var d9a="M10,25 q 10,-10,10,0 t 10,0 ";
+ var d9x="M20,20 h1 ";
+ var d3x="M10,33 q 10,-3,20,0 q -10,-10,-20,0 ";
+ var d4x="M12,17 q 8,1,16,0 q -8, 5,-16,0 ";
+ var d5x="M15,21 q 5,-3,10,0 q -5,-7,-10,0 ";
+ var c3x="M17,28 v-3 a6,15, 0 0 1 3,-15 a6,15, 0 0 1 3,15 v3 ";
+ var d7x="M10,33 h20 a 15,35,0,0,0,-12,-22 l-8,10 a3,3 0 1 0 5,5 l 3,-2 v2 Z ";
+ var c5x="M16,17 a1,1 0 0 1 2,0 ";
+ var d8x="M10,30 v-5 q -5,-23,10,-2 M30,30 v-5 q 5,-23,-10,-2 h1 v-16 h-2 v16 M16,14 h8 v-2 h-8 v2 ";
+ var cax="M10,30 A10,3 0 0 0 30,30 ";
+ var cbx="M18,28 v-9 M22,28 v-9 ";
+ var tt2="";
+ var turned=0;
+ var svgNS = "http://www.w3.org/2000/svg"; 
+ ref_desk();
+
+var whtd=-1; var glop=1; /* default human white */
+mvs_done=0; g_lev=4; konb=4;konw=60;cott=0;
+sbuff=new Array(); mvsi=new Array(); mvsj=new Array(); mvsp=new Array(); mvi=new Array(); mvj=new Array(); xxx=new Array(); 
+nodess=0;egm=0; /*endgame*/ levn=4;lim6=6;maxmov=99;mreal=0;ttr1=-999;autor1=1; // default treshold
+var ri=0, rj=0, not_moved_b=1, not_moved_w=1, examp_mode=0, exflag=0; // needed vars
+
+h_ira=0; h_irb=0;
+bt1=[0,0,0,0,0,0,0,0];
+bt2=[0,0,0,0,0,0,0,0];
+mapp=[0,0,0,0, 0,0,0,0, 0,1,1,1, 1,1,1,0, 0,1,2,2, 2,2,1,0, 0,1,2,3, 3,2,1,0, 0,1,2,3, 3,2,1,0, 0,1,2,2, 2,2,1,0, 0,1,1,1, 1,1,1,0, 0,0,0,0, 0,0,0,0];
+msk =[0,0,0,1, 1,0,0,0, 0,1,1,1, 1,1,1,0, 0,1,2,2, 2,2,1,0, 0,1,2,3, 3,2,1,0, 0,1,2,3, 3,2,1,0, 0,1,2,2, 2,2,1,0, 0,1,1,1, 1,1,1,0, 0,0,0,1, 1,0,0,0];
+ipp= [ -2, 2,-1, 1, 2,-2, 1,-1 ];
+jpp= [ -1, 1,-2, 2,-1, 1,-2, 2 ];
+var Cornholio=0;
+
+function swp1() {
+ whtd= -whtd;
+ var el=document.getElementById("kdo1");var kdo=el.innerHTML;
+ if (kdo=="W") el.innerHTML="B"; else el.innerHTML="W"
+}
+
+function loa() {
+ remo();
+ ref_desk();
+ return 1;
+
+//old branch with GIF s - switched off
+ var i,ddst,idf;
+ for (i=0;i<64;++i) 
+ {
+  ddst='d'+i.toString();
+  var idf=pikk(dsk[i], atr[i]);
+  var elisrc=document.getElementById(idf);
+  var elidst=document.getElementById(ddst);
+  elidst.innerHTML=elisrc.innerHTML;
+//document.getElementById('texi').value="void";
+ }
+}
+
+
+function moveto(k) {
+ var i,j;i=Math.floor(k/64);j=k%64;
+ if (i==konw) konw=j;
+ if (i==konb) konb=j;
+ sbuff.push(dsk[j]);sbuff.push(atr[j]);sbuff.push(dsk[i]);sbuff.push(atr[i]);sbuff.push(i);sbuff.push(j);
+ if ((dsk[i] == 10) && (j > 55)) dsk[i]=95;
+ if ((dsk[i] == 10) && (j <  8)) dsk[i]=95;
+ if (dsk[i]==255) if (i== 4) if (j== 6) { dsk[5] =50;atr[5] = 1;dsk[7] =0;atr[7] =0; }
+ if (dsk[i]==255) if (i==60) if (j==62) { dsk[61]=50;atr[61]=-1;dsk[63]=0;atr[63]=0; }
+ if (dsk[i]==255) if (i==60) if (j==58) { dsk[59]=50;atr[59]=-1;dsk[56]=0;atr[56]=0; }
+ dsk[j]=dsk[i];dsk[i]=0;atr[j]=atr[i];atr[i]=0;
+ return 1;
+}
+
+function movert() {
+ var i,j;
+ j=sbuff.pop();i=sbuff.pop();
+ if (j==konb) konb=i;
+ if (j==konw) konw=i;
+ if (dsk[j]==255) if (i== 4) if (j== 6) { dsk[5] = 0;atr[5] =0;dsk[7] =50;atr[7] = 1; not_moved_b=1; }
+ if (dsk[j]==255) if (i==60) if (j==62) { dsk[61]= 0;atr[61]=0;dsk[63]=50;atr[63]=-1; not_moved_w=1; }
+ if (dsk[j]==255) if (i==60) if (j==58) { dsk[59]= 0;atr[59]=0;dsk[56]=50;atr[56]=-1; not_moved_w=1; }
+ atr[i]=sbuff.pop();dsk[i]=sbuff.pop();atr[j]=sbuff.pop();dsk[j]=sbuff.pop();
+ return 1;
+}
+
+function cornhol() {
+  Cornholio=1-Cornholio;
+  alert("swaped to God Mode- Immortality");
+}
+
+function pars(a4) {
+ // by default human is white 
+ var j1=a4.charCodeAt(0)-97;var j2=56-a4.charCodeAt(1);var k1=a4.charCodeAt(2)-97; var k2=56-a4.charCodeAt(3);
+ var i=j2*8+j1;var j=k2*8+k1;var ki=i*64+j;
+ document.getElementById("res1").innerHTML="mv done: "+a4;
+ vil=xleg(ki, whtd);
+ if (vil==0) xleg(ki, -whtd);
+ if ((vil==1) || (Cornholio==1)) bfoo(i,j); 
+ if (vil==0) if (i==60) if (castW()==1) { vil=1; not_moved_w=0; bfoo(i,j); }
+ if (vil==0) { document.getElementById("res1").innerHTML="Move illegal"; return 0;}
+ if (vil==1) { remo(); ref_desk(); }
+ if (autor1==1) respo();
+ ref_kk();
+ return 1;
+}
+
+function pikk(i,j) {
+ if (j == 0) return "x.gif";
+ if (j == 1) ssuf="b";
+ if (j ==-1) ssuf="w";
+ if (i==50)  return "rook"+ssuf+".gif";
+ if (i==30)  return "knight"+ssuf+".gif";
+ if (i==31)  return "bishop"+ssuf+".gif";
+ if (i==95)  return "queen"+ssuf+".gif";
+ if (i==255) return "king"+ssuf+".gif";
+ if (i==10)  return "pawn"+ssuf+".gif";
+}
+
+function id_to_field(did) {
+ var aa=did.substr(1);
+ var ii=Math.floor(aa/8);
+ var jj=aa%8;   
+ var ven1=String.fromCharCode(jj+97)+String.fromCharCode(56-ii);
+ return ven1;
+}
+
+function writeLED(fb) {
+ var ve=id_to_field(fb);
+ var fif1=ve.toString();
+ var sw3=document.getElementById('texi');
+ var bb=sw3.value;
+ if (bb.length==2) {
+  sw3.value=bb+fif1;
+  pars(bb+fif1);
+ } else
+  sw3.value=fif1;
+}
+
+function xleg(k, wh) {
+ var km=0, flag1=1, konk;
+ if ( leg(k, wh) == 0) return 0;
+ moveto(k);
+ if (wh==1)  konk=konb;
+ if (wh==-1) konk=konw;
+ do {
+  var res11=leg(km*64+konk,-wh);
+  if (res11) flag1=0;           
+  ++km;
+  } while ( (flag1 == 1) && (km < 64) );
+  movert();
+  return flag1;
+}
+
+
+function leg(k, wh) {
+ var incer,ab1,ab2,sq2,h1,h2,a,b,c,d,i,j,pcs,kc;
+ i=Math.floor(k/64);j=k%64;
+ if (atr[i]!=wh) return 0;
+ if (i==j) return 0;
+ if (dsk[i]==0) return 0;
+ if (atr[j]==wh) return 0;
+ a=i%8;b=Math.floor(i/8);c=j%8;d=Math.floor(j/8);h1=(c-a);h2=(d-b);sq2=h1*h1+h2*h2;pcs=dsk[i];
+ if (pcs==30)  {if (sq2 == 5) return 1; else return 0;}
+ if (pcs==255) {if (sq2<3) return 1; else return 0; }
+ if (pcs==10) {
+  if (atr[j]==0) { /* into void field */
+   if (h1 != 0)return 0;if (h2 == wh) return 1;
+   if (h2 == (wh+wh)) { 
+    if (atr[(i+j)/2] != 0) return 0;
+    if ((b == 6) || (b == 1)) return 1;
+    return 0;
+   }
+  } 
+  if (atr[j]!=0) { /* into occupied */
+   if ((h1*h1) != 1) return 0;
+   if (h2 == wh) return 1;
+   return 0;
+  }
+  return 0;
+ }
+ ab1=Math.abs(h1);ab2=Math.abs(h2);
+ if (pcs==50) { 
+  if ((h1*h2) != 0) return 0;
+  incer=Math.floor((j-i)/(ab1+ab2));kc=i;
+  do { kc+=incer; if (kc==j) return 1; if (atr[kc] != 0) return 0;} while (kc != j);
+ }
+ if (pcs==31) {
+  if ( ab1 != ab2) return 0;
+  incer=Math.floor((j-i)/ab1);kc=i;
+  do { kc+=incer; if (kc==j) return 1; if (atr[kc] != 0) return 0;} while (kc != j);
+ }
+ if (pcs==95) {
+  if  ( (ab1 != ab2) &&  ( (h1*h2) != 0 ) ) return 0;
+  if (ab1 > 0) incer=Math.floor((j-i)/ab1); else incer=Math.floor((j-i)/ab2);kc=i;
+  do { kc+=incer; if (kc==j) return 1; if (atr[kc] != 0) return 0; } while (kc != j);
+  return 0;
+ }
+ return 0;
+}
+
+function respo() {
+  h_ira=0; h_irb=0;
+  mortale("Ply ...");
+  var mj=xgenleg(-whtd, 2); var ilev=2;
+  if (mj == 0) { mortale("Mate now"); return 1; }
+  disi(mj);
+
+//if (egm==1) if (levn<=6) slev1();
+//if (egm==0) if (levn>=6) slev2();  
+
+   diagg(0,0,-999,"wiak",0); // reset White Diagg
+   do {
+   nodess=0;
+   var viril=AlphaBetaBW(ilev, ttr1, 999, -whtd);
+   var ira=bt1[ilev];var irb=bt2[ilev];
+   diagg(ira,irb,viril,"diak",ilev);
+   if (viril == 999) {bfoo(ira, irb); return 1;}
+   if (ira == irb)   {mortale("Treshold Failed or Future Mate");     return 0;}
+   ilev+=2;
+   if (mj==1) ilev=levn+2;  //there was only 1 mv possible
+   } while (ilev <= levn);
+   ri=ira; rj=irb; //repeat flag mv
+   bfoo(ira,irb);  //do move
+
+   nodess=0; 
+   var viril=AlphaBetaBW(4,-999, 999, whtd);
+   var ira=bt1[4];var irb=bt2[4];
+   diagg(ira,irb,viril,"wiak",4);
+   h_ira=ira; h_irb=irb; 
+   ++mvs_done;
+   egm=0;
+// if (nodess < 300) egm=1;
+// if (nodess > 299) egm=0;
+}
+
+function diagg(aa,bb,cc,vich, lejn) {
+ var ii=Math.floor(aa/8); var jj=aa%8; var ven1=String.fromCharCode(jj+65)+String.fromCharCode(56-ii);
+ var ii=Math.floor(bb/8); var jj=bb%8; var ven2=String.fromCharCode(jj+65)+String.fromCharCode(56-ii);
+ var ekw1 = document.getElementById(vich);
+ ekw1.innerHTML='scor:'+cc.toString()+',mv:'+ven1+ven2+',nods:'+nodess.toString()+',lev:'+lejn.toString();
+ return 1;
+}
+
+function AlphaBetaBW(tiefe, Alpha, Beta, wh) {
+  var rbw,i,j,wert, cmvs, aa, bb;
+  var gi = new Array(); var gj = new Array();
+  aa=Alpha;bb=Beta;
+  if (tiefe == 0) {++nodess;rbw=bewert(); return rbw*wh;}
+  mreal=0;
+  cmvs=xgenleg(wh,tiefe);
+  gi=mvsi.slice();gj=mvsj.slice();
+  bt1[tiefe]=0;bt2[tiefe]=0;
+  if (cmvs==0) if (isremis()==1) return 0;
+  while (cmvs>0) {
+    --cmvs;i=gi.pop();j=gj.pop(); moveto(i*64+j);
+    wert=-AlphaBetaBW(tiefe-1,-bb,-aa,-wh); movert();
+    if (wert > aa) { aa=wert;bt1[tiefe]=i;bt2[tiefe]=j; if (wert >= bb) return bb; }
+  }
+  return aa;
+}
+
+
+function genleg(wh) {
+ var h,bi,bj,i,j,mcount, tres, h1,h2, x;
+ mvsi=[];mvsj=[];mvsp=[];
+ var msk=Array(); /* mirroring array */
+ var pic1=[95,50,31,30,10,3,2,1,0];
+ msk=dsk.slice();
+ for (i=0;i<64;++i) if (msk[i] == 0) msk[i]=mapp[i];
+ mcount=0;	
+ for (x=0;x<9;++x) 
+ for (i=0;i<64;++i) 
+ if (atr[i]==wh) 
+ for (j=0;j<64;++j) 
+ if (msk[j]==pic1[x]) 
+ if (xleg(i*64+j,wh)) {
+  if (mcount < maxmov) { tres=dsk[j]; mvsi.push(i); mvsj.push(j); mvsp.push(tres); ++mcount; mcount=mcount%64; }
+// protect against overflow
+  ++mreal;
+ }
+ mvsi.reverse();mvsj.reverse();mvsp.reverse();
+ return mcount;
+}
+
+function bewert() {
+ var i,sm=0;
+ for (i=0;i<64;++i) {
+  if (atr[i] == -1) sm-=dsk[i];
+  if (atr[i] ==  1) sm+=dsk[i];
+ }
+ return sm;       /* value now with minus, butt will be reversed */
+}
+
+function disi(mc1) { 
+  var i;
+  var ekw1 = document.getElementById('gells');
+  ekw1.innerHTML='';
+  for (i=0;i<mc1;++i) { 
+   var i1=mvsi[i]; var j1=mvsj[i];
+   var ii=Math.floor(i1/8);var jj=i1%8;   
+   var ven1=String.fromCharCode(jj+65)+String.fromCharCode(56-ii);
+   var ii=Math.floor(j1/8);var jj=j1%8;   
+   var ven2=String.fromCharCode(jj+65)+String.fromCharCode(56-ii);
+   var ekw1 = document.getElementById('gells');
+   ekw1.innerHTML=ekw1.innerHTML+ven1+ven2+' ';
+  }
+}
+
+function mortale(mess1) {
+ var ekw1 = document.getElementById("ekw");
+ ekw1.innerHTML=mess1;
+ return 1;
+}
+
+function lback() {
+ not_moved_w=1;
+ not_moved_b=1;
+ if (glop < 2) { alert("Cannot go back..."); return 0; }
+ var wl=document.getElementById("mc1");
+ var g='c'+ wl.innerHTML;
+ --glop; wl.innerHTML=glop-1; loa_id(g); 
+ var wl=document.getElementById(g); 
+ wl.remove();
+}
+
+function cr1(desl) {
+ var parentEl = document.getElementById("base_div");
+ var spanEl = document.createElement("div");
+ var miid="c"+glop;document.getElementById("mc1").innerHTML=glop;++glop;
+ parentEl.appendChild(spanEl);
+ spanEl.innerHTML=desl+":"+miid;
+ spanEl.setAttribute("id", miid);
+ spanEl.setAttribute("hidden", true);
+}
+
+function loa_id(el_id) {
+ var tx2=document.getElementById(el_id).innerHTML;
+ document.getElementById("dsk1").innerHTML=tx2.substr(0,64);
+ var i,ddst,til,idf;
+ for (i=0;i<64;++i)  {
+  til=tx2.substr(i,1);
+  if (til=='H') { dsk[i]=50; atr[i]=1; idf='rookb'; }
+  if (til=='N') { dsk[i]=30; atr[i]=1; idf='knightb'; }
+  if (til=='L') { dsk[i]=31; atr[i]=1; idf='bishopb'; }
+  if (til=='Q') { dsk[i]=95; atr[i]=1; idf='queenb'; }
+  if (til=='K') { dsk[i]=255;atr[i]=1; idf='kingb'; konb=i; }
+  if (til=='P') { dsk[i]=10; atr[i]=1; idf='pawnb'; }
+  if (til=='h') { dsk[i]=50; atr[i]=-1;idf='rookw'; }
+  if (til=='n') { dsk[i]=30; atr[i]=-1;idf='knightw'; }
+  if (til=='l') { dsk[i]=31; atr[i]=-1;idf='bishopw'; }
+  if (til=='q') { dsk[i]=95; atr[i]=-1;idf='queenw'; }
+  if (til=='k') { dsk[i]=255;atr[i]=-1;idf='kingw'; konw=i; }
+  if (til=='p') { dsk[i]=10; atr[i]=-1;idf='pawnw'; }
+  if (til=='.') { dsk[i]= 0; atr[i]= 0;idf='edis2'; }
+ }
+ loa();
+ ref_kk();
+}
+
+function makemove(i,j) {
+ var el = document.getElementById('dsk1'); 
+ var tx1=el.innerHTML;
+ var tepi = Array(); 
+ tepi = tx1.split("");
+ tepi[j]=tepi[i]; tepi[i]='.'; 
+ if (i==60) if (j==62) if (dsk[i]==255) {  tepi[61]=tepi[63]; tepi[63]='.';  }
+ if (i==60) if (j==58) if (dsk[i]==255) {  tepi[59]=tepi[56]; tepi[56]='.';  }
+ if (i== 4) if (j== 6) if (dsk[i]==255) {  tepi[5] =tepi[7];  tepi[7] ='.';  }
+ if (j<8 ) if (dsk[i]==10) tepi[j]='q';
+ if (j>55) if (dsk[i]==10) tepi[j]='Q';
+ tx1=tepi.join("");
+ el.innerHTML=tx1;
+ if (i==konw) konw=j;
+ if (i==konb) konb=j;
+}
+
+function ref_kk() {
+ var tex="B:"+id_to_field('d'+konb)+",W:"+id_to_field('d'+konw)
+ document.getElementById("kkk").innerHTML=tex;
+}
+
+function modi(t2) {
+ document.getElementById("dsk1").innerHTML=t2;
+ loa_id("dsk1");
+}
+
+function slev1() {
+ var el=document.getElementById("lev1");var kdo=el.innerHTML;
+ ++kdo;++kdo;
+ if (kdo > 8) kdo = 2;
+ el.innerHTML=kdo;
+ levn=kdo;
+ g_lev=levn;
+}
+function slev2() {
+ var el=document.getElementById("lev1");
+ var kdo=el.innerHTML;
+ --kdo;--kdo;
+ if (kdo < 4) kdo = 4;
+ el.innerHTML=kdo;
+ levn=kdo;
+ g_lev=levn;
+}
+function size1() {
+ var i;
+ var el=document.getElementById("base1svg");
+ i=Number(el.getAttribute("width"));
+ i+=200;
+ i=i%1000;
+ if (i < 150) i+=200;
+ el.setAttribute("width" ,i);
+ el.setAttribute("height",i);
+}
+function set1() {
+ var el=document.getElementById("trsh1");var num1=Number(el.innerHTML);
+ num1 += 200;
+ if (num1 > 999) num1 = -999;
+ el.innerHTML=num1.toString();
+ ttr1=num1;
+}
+
+function autoresp() {
+ var el=document.getElementById("auto1");var num1=Number(el.innerHTML);
+ num1 = 1 -num1;
+ el.innerHTML=num1.toString();
+ autor1=num1;
+}
+
+function isremis() {
+  var i=0; var sack=0;
+  do { if (atr[i] == -1)
+  if (leg(i*64+konb,-1)==1) {sack=1;i=64;} ++i;
+  } while (i < 64);
+  i=0;
+  do { if (atr[i] ==  1)
+  if (leg(i*64+konw, 1)==1) {sack=1;i=64;} ++i;
+  } while (i < 64);
+  return 1-sack;
+}
+
+function mbest() {
+ if (h_ira == h_irb) { alert("Currently no Hint available"); return 0; }
+ bfoo(h_ira, h_irb);
+ h_ira=0; h_irb=0;
+ if (autor1==1) respo();
+}
+
+function revd() {
+ var s =document.getElementById('dsk1');
+ var t =document.getElementById('res1');
+ var ns=s.innerHTML;
+// var arns=ns.split("").reverse();
+ var hx,i;
+ turned=1-turned;
+// whtd= -whtd; 
+
+ if (1==2) //discard
+ for(i=0;i<64;++i)
+ if (arns[i] != '.') {hx=arns[i];hx =String.fromCharCode(hx.charCodeAt(0) ^ 32);arns[i]=hx;}
+// ns=arns.join(""); 
+ t.innerHTML=ns;
+ loa_id("res1");
+}
+
+function insert1(a4) {
+ var j1=a4.charCodeAt(0)-97;var j2=56-a4.charCodeAt(1);
+ var j=j2*8+j1;
+ var el = document.getElementById('dsk1'); 
+ var tx1=el.innerHTML;
+ var tepi = Array(); 
+ tepi = tx1.split("");
+ tepi[j]=a4.substr(2,1); tx1=tepi.join("");
+ el.innerHTML=tx1;
+ loa_id("dsk1");
+ return 1;
+}
+
+function clear1() {
+ loa_id("dsk5");
+}
+
+function new1() {
+ loa_id("dsk0");
+}
+
+function xgenleg(wh,tiefe) {
+  var j,i,k,kmax,mcount=0, tres, chh_flag;
+  mvsi=[];mvsj=[];mvsp=[];
+  chh_flag=i_chess(wh);
+  kmax=of1(wh, tiefe);
+  for(k=0;k<kmax;++k) {
+  i=mvi[k];j=mvj[k];
+   if (atr[i]==wh)
+   if (mxleg(i*64+j,wh,chh_flag)==1) {
+    tres=dsk[j];mvsi[mcount]=i;mvsj[mcount]=j;mvsp[mcount]=tres+msk[j]-msk[i];
+    if (i==4 ) if (j==6 ) mvsp[mcount]+=15; //castling bonus
+    if (i==rj) if (j==ri) mvsp[mcount]-=15; //repetion bat
+    ++mcount;mcount=mcount%64; // protect against overflow 
+   }
+  }
+  if (mcount > 1) msort(mcount);
+  return mcount;
+}
+
+
+function radd_chess(wh) {
+ var i,j, konk=konb;
+ if (wh==-1) konk=konw;
+
+ for(i= 0;i< 8;++i) 
+ for(j= 0;j< 8;++j) 
+ if (atr[i*8+j] == -wh)
+ if ((dsk[i*8+j] == 31) || (dsk[i*8+j] == 95))
+ if (Math.abs(Math.floor(konk/8-i))==Math.abs( (konk%8)-j))
+ return 1;
+
+ for(i= 0;i< 8;++i) 
+ for(j= 0;j< 8;++j) 
+ if (atr[i*8+j] == -wh)
+ if ((dsk[i*8+j] == 50) || (dsk[i*8+j] == 95))
+ if (( (Math.floor(konk/8-i))==0) || ( ((konk%8)-j)==0))
+ return 1;
+
+ return 0;
+
+}
+
+
+function of1(wh,lv) {
+  var rdc,i,j,k,l,m,n,o,p,s, dcot=0, flag1, ridde, prex;
+  for(i= 0;i<64;++i) xxx[i]=0;
+  rdc=radd_chess(wh);  //only if potential raddiation chess treath
+
+  if (rdc==1)
+  for(i= 0;i< 8;++i) 
+  for(j= 0;j< 8;++j) 
+  if (atr[i*8+j] == wh)
+  if (dsk[i*8+j] == 255)
+  for(k=-1;k<2;++k) 
+  for(l=-1;l<2;++l)
+  if ((k!=0) || (l!=0)) {
+   m=i;n=j;o=i*8+j;
+   do {
+     m+=k;n+=l;flag1=0;
+     if ((m>=0) && (m<8) && (n>=0) && (n<8)) {
+      p=8*m+n; 
+      if (atr[p] == wh) xxx[p]=1;
+      if (atr[p] == 0)  flag1 =1;
+     } 
+   } while (flag1==1);
+  }
+  for(i= 0;i<8;++i) 
+  for(j= 0;j<8;++j) 
+  if (atr[i*8+j] == wh)
+  if (dsk[i*8+j] != 10)
+  if (dsk[i*8+j] != 30)
+  for(k=-1;k<2;++k) 
+  for(l=-1;l<2;++l)
+  if ((k!=0) || (l!=0)) {
+   m=i;n=j;ridde=0;o=i*8+j;
+   if ( ((dsk[o]==95)||(dsk[o]==31)) && (Math.abs(k)==Math.abs(l) ) ) ridde=1;
+   if ( ((dsk[o]==95)||(dsk[o]==50)) && ((k==0) || (l==0)) )          ridde=1;
+   if (dsk[o]==255) ridde=1;
+   if (ridde==1)
+   do {
+     m+=k;n+=l;p=8*m+n;flag1=0;
+     if ((m>=0) && (m<8) && (n>=0) && (n<8))
+     if (atr[p] != wh) {
+      mvi[dcot]=o; mvj[dcot]=p; dcot++;
+      if (dsk[o]!=255) if (atr[p]==0) flag1=1;
+     }
+   } while (flag1==1);
+  }
+  for(i= 0;i<8;++i) 
+  for(j= 0;j<8;++j) 
+  if (atr[i*8+j] == wh)
+  if (dsk[i*8+j] == 30)
+  for(s=0;s<8;++s) {
+  k=ipp[s];l=jpp[s];
+  if ((k!=0) || (l!=0)) {
+   m=i;n=j;
+   do {
+     m+=k;n+=l;p=8*m+n;o=i*8+j;flag1=0;
+     if ((m>=0) && (m<8) && (n>=0) && (n<8))
+     if (atr[p] != wh) {
+      mvi[dcot]=o; mvj[dcot]=p; dcot++;
+     }
+   } while (flag1==1);
+  }
+  }
+  for(i= 0;i<8;++i) 
+  for(j= 0;j<8;++j) 
+  if (atr[i*8+j] == wh)
+  if (dsk[i*8+j] == 10) {
+   m=i+wh;p=8*m+j-1;o=i*8+j;
+   if ( (j>0) && (atr[p]==-wh) )  {
+    mvi[dcot]=o; mvj[dcot]=p; dcot++;
+   }
+   p=8*m+j+1;
+   if ( (j<7) && (atr[p]==-wh) )  {
+    mvi[dcot]=o; mvj[dcot]=p; dcot++;
+   }
+   p=8*m+j;prex=0;
+   if (atr[p]==0)  {
+    mvi[dcot]=o; mvj[dcot]=p; dcot++;
+    prex=1;
+   }
+   m=i+wh+wh;p=8*m+j;
+   if (prex==1)
+   if ((wh==i) || ((wh+7)==i) )
+   if (atr[p]==0)  {
+    mvi[dcot]=o; mvj[dcot]=p; dcot++;
+   }
+  }
+  if (lv==g_lev) if (wh== 1) if (castB()==1)   { mvi[dcot]=4;  mvj[dcot]=6;  dcot++; }
+  return dcot;
+}
+
+function msort(n) {
+  var inx,lcv, LastC, limt, temp;
+  limt=n-1;
+  while (limt > 0) {
+   LastC=0;
+   for (lcv=0;lcv<limt;++lcv)
+   if (mvsp[lcv]>mvsp[lcv+1]) {
+    inx=lcv;temp = mvsp[inx];mvsp[inx] = mvsp[inx+1];mvsp[inx+1] = temp;
+    temp = mvsi[inx];mvsi[inx] = mvsi[inx+1];mvsi[inx+1] = temp;
+    temp = mvsj[inx];mvsj[inx] = mvsj[inx+1];mvsj[inx+1] = temp;
+    LastC = lcv;
+   }
+   limt = LastC;
+  }
+  return 1;
+}
+
+function castB() {
+  if (not_moved_b==1) if (dsk[4]==255) if (atr[4]==1) if (dsk[5]==0) if (dsk[6]==0) if (dsk[7]==50) if (atr[7]==1)
+  return 1;
+  return 0;
+}
+function castW() {
+  if (not_moved_w==1) if (dsk[60]==255) if (atr[60]==-1) if (dsk[61]==0) if (dsk[62]==0) if (dsk[63]==50) if (atr[63]==-1)   return 1;
+  if (not_moved_w==1) if (dsk[60]==255) if (atr[60]==-1) if (dsk[59]==0) if (dsk[57]==0) if (dsk[58]==0)  if (dsk[56]==50) if (atr[56]==-1)   return 1;
+  return 0;
+}
+
+function bextra() {
+    var i,sm=0;
+    for (i=0;i<64;++i)
+    if (atr[i] > 0)
+    if (dsk[i] == 10) sm+=Math.floor(i/8);
+    return sm;
+}
+
+function i_chess(wh) {
+  var i=0, sack=0, konk=konw;
+  if (wh == 1) konk=konb;
+  do {
+  if (atr[i] == -wh)
+  if (leg(i*64+konk,-wh)==1) {sack=1;i=64;}
+  ++i;
+  } while (i < 64);
+  return sack;
+}
+
+function mxleg(k,wh,ch_flag) {
+  var i,j,km, flag1=1, konk;
+  i=Math.floor(k/64);j=k%64;
+  if (ch_flag !=1) if (dsk[i]!=255) if (xxx[i]==0) return 1; //mv which can not lead to chess - while not in chess
+
+  moveto(k);
+  konk=konb; 
+  if (wh==-1) konk=konw;
+  km=0;
+  do {
+   if ( leg(km*64+konk,-wh)==1 ) flag1=0;
+   ++km;
+  } while ( (flag1 == 1) && (km < 64) );
+  movert();
+  return flag1;
+}
+</script>
